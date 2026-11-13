@@ -23,6 +23,9 @@
         "symfony/dom-crawler": "^6.4 || ^7 || ^8",
         "vincentlanglet/twig-cs-fixer": "^3.14.0"
     },
+    "conflict": {
+        "consolidation/robo": ">=5.2.1 <5.2.4"
+    },
     "config": {
         "allow-plugins": {
             "cweagans/composer-patches": true,
@@ -37,9 +40,6 @@
         },
         "phpcodesniffer-search-depth": 10,
         "patches": {
-            "consolidation/robo": {
-                "Fall back to 'add()' on Symfony Console < 7.4": "patches/robo-symfony-console-add-command.patch"
-            },
             "drupal/search_api": {
                 "Add Drupal 12 to the 'search_api_db' core version requirement": "patches/search_api-search_api_db-drupal-12.patch"
             }
