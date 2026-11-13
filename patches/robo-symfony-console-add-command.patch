@@ -1,0 +1,40 @@
+diff --git a/src/Robo.php b/src/Robo.php
+--- a/src/Robo.php
++++ b/src/Robo.php
+@@ -547,7 +547,7 @@ class Robo
+         // If the instance is a Symfony Command, register it with
+         // the application
+         if ($instance instanceof Command) {
+-            $app->addCommand($instance);
++            static::addCommandToApplication($app, $instance);
+             return $instance;
+         }
+
+@@ -555,11 +555,26 @@ class Robo
+         $commandFactory = $container->get('commandFactory');
+         $commandList = $commandFactory->createCommandsFromClass($instance);
+         foreach ($commandList as $command) {
+-            $app->addCommand($command);
++            static::addCommandToApplication($app, $command);
+         }
+         return $instance;
+     }
+
++    /**
++     * @param \Symfony\Component\Console\Application $app
++     * @param \Symfony\Component\Console\Command\Command $command
++     */
++    protected static function addCommandToApplication($app, Command $command)
++    {
++        // Symfony Console < 7.4 has no addCommand(), and $app is not always a
++        // \Robo\Application with its own compatibility wrapper.
++        if (method_exists($app, 'addCommand')) {
++            $app->addCommand($command);
++            return;
++        }
++        $app->add($command);
++    }
++
+     /**
+      * @param string|object $handler
+      *

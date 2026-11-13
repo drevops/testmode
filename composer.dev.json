@@ -37,6 +37,9 @@
         },
         "phpcodesniffer-search-depth": 10,
         "patches": {
+            "consolidation/robo": {
+                "Fall back to 'add()' on Symfony Console < 7.4": "patches/robo-symfony-console-add-command.patch"
+            },
             "drupal/search_api": {
                 "Add Drupal 12 to the 'search_api_db' core version requirement": "patches/search_api-search_api_db-drupal-12.patch"
             }
